@@ -42,10 +42,17 @@ def predict():
         data4 = 0
 
     data55 = request.form['score_math']
-    data5=  float(data55)*5
+    data5 =  float(data55)*5
 
     # arr = np.array([[data1, data2, data3]])
     pred = model.predict([[data1, data2, data4, data3, data5]])
+
+    if pred >= 100 :
+        pred = 98
+    else :
+        pred = model.predict([[data1, data2, data4, data3, data5]])
+
+
     return render_template('home.html', data=pred*20/100)
 
 

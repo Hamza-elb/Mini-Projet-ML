@@ -319,20 +319,12 @@ print(regressor.score(X_test,Y_test))
 # In[579]:
 
 
-# regressor.predict([[1,2,1,1,70]])
-
-
-# In[ ]:
-
+print(regressor.predict([[1,1,1,1,95]]))
 
 
 
 
 # In[ ]:
-
-
-
-
 
 
 
