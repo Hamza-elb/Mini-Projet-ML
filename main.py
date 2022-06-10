@@ -1,84 +1,127 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[541]:
+# In[42]:
 import pickle
 
-
+import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-
 from sklearn.model_selection import train_test_split
-from sklearn.linear_model import LinearRegression
+from sklearn.linear_model import LinearRegression 
+from sklearn.linear_model import Lasso
 
 
-# In[542]:
+# In[43]:
 
 
 Data = pd.read_csv('P.csv')
 Data.head()
 
 
-# In[543]:
+# In[44]:
 
 
 Data = Data.dropna()
 
 
-# In[544]:
+# In[ ]:
+
+
+
+
+
+# In[ ]:
+
+
+
+
+
+# In[ ]:
+
+
+
+
+
+# In[45]:
 
 
 Data
 
 
-# In[545]:
+# In[46]:
 
 
 Data.drop(['reading score','parents visit'],  axis=1, inplace=True)
 Data
 
 
-# In[546]:
+# In[47]:
 
 
 Data.columns = [each.split()[0] + "_" + each.split()[1] if (len(each.split()) > 1) else each for each in Data.columns ]
 print(Data.columns)
 
 
-# In[547]:
+# In[48]:
 
 
 Data
 
 
-# In[548]:
+# In[ ]:
+
+
+
+
+
+# In[ ]:
+
+
+
+
+
+# In[ ]:
+
+
+
+
+
+# In[49]:
+
+
+Data
+
+
+# In[50]:
 
 
 plt.scatter(Data.gender,Data.score_bac,marker='+',color='red')
 plt.ylabel('Score Bac')
 
 
-# In[549]:
+# In[51]:
 
 
+fig = plt.figure(figsize=(10,8))
 plt.scatter(Data.parental_level,Data.score_bac,marker='+',color='red')
 
 
-# In[550]:
+# In[52]:
 
 
 plt.scatter(Data.restoration,Data.score_bac,marker='+',color='red')
 plt.ylabel('Score Bac')
 
 
-# In[551]:
+# In[53]:
 
 
 plt.scatter(Data.test_preparation,Data.score_bac,marker='+',color='red')
 plt.ylabel('Score Bac')
 
 
-# In[552]:
+# In[54]:
 
 
 plt.scatter(Data.score_math,Data.score_bac,marker='+',color='red')
@@ -121,39 +164,39 @@ plt.ylabel('Score Bac')
 
 
 
-# In[553]:
+# In[55]:
 
 
 X = Data.iloc[:,:-1]
 Y = Data.iloc[:,-1]
 
 
-# In[554]:
+# In[56]:
 
 
 X
 
 
-# In[555]:
+# In[57]:
 
 
 Y
 
 
-# In[556]:
+# In[58]:
 
 
 Data.columns = [each.split()[0] + "_" + each.split()[1] if (len(each.split()) > 1) else each for each in Data.columns ]
 print(Data.columns)
 
 
-# In[557]:
+# In[59]:
 
 
 Data.head()
 
 
-# In[558]:
+# In[60]:
 
 
 X['gender'].replace( 'female', 0 ,inplace=True)
@@ -162,7 +205,7 @@ X['gender'].replace( 'male', 1 ,inplace=True)
 # le = LabelEncoder()
 
 
-# In[559]:
+# In[61]:
 
 
 # dfle = Data
@@ -180,14 +223,14 @@ X['gender'].replace( 'male', 1 ,inplace=True)
 
 
 
-# In[560]:
+# In[62]:
 
 
 X['test_preparation'].replace( 'none', 0 ,inplace=True)
 X['test_preparation'].replace( 'completed', 1 ,inplace=True)
 
 
-# In[561]:
+# In[63]:
 
 
 X['parental_level'].replace( 'bachelor\'s degree', 1 ,inplace=True)
@@ -198,13 +241,13 @@ X['parental_level'].replace( 'high school', 5 ,inplace=True)
 X['parental_level'].replace( 'some high school', 6 ,inplace=True)
 
 
-# In[562]:
+# In[64]:
 
 
 # X['parents visit'].unique()
 
 
-# In[563]:
+# In[65]:
 
 
 # X['parents visit'].replace( 'group A', 1 ,inplace=True)
@@ -214,38 +257,38 @@ X['parental_level'].replace( 'some high school', 6 ,inplace=True)
 # X['parents visit'].replace( 'group E', 5 ,inplace=True)
 
 
-# In[564]:
+# In[66]:
 
 
 X['restoration'].unique()
 
 
-# In[565]:
+# In[67]:
 
 
 X['restoration'].replace( 'standard', 0 ,inplace=True)
 X['restoration'].replace( 'free/reduced', 1 ,inplace=True)
 
 
-# In[566]:
+# In[68]:
 
 
 X
 
 
-# In[567]:
+# In[69]:
 
 
 X_train,X_test,Y_train,Y_test=train_test_split(X,Y,test_size=0.2)
 
 
-# In[568]:
+# In[70]:
 
 
 X_train
 
 
-# In[569]:
+# In[71]:
 
 
 Y_train
@@ -257,42 +300,52 @@ Y_train
 
 
 
-# In[ ]:
+# In[72]:
 
 
+# model = Lasso()
+# model.fit(X_train,Y_train)
 
 
-
-# In[570]:
+# In[73]:
 
 
 regressor = LinearRegression()
 
 regressor.fit(X_train,Y_train)
 
-# model = Lasso()
-# model.fit(X_train,Y_train)
+
+# In[74]:
 
 
-# In[572]:
+# Y_pred=model.predict(X_test)
+
+
+# In[75]:
+
+
+# Y_pred
+
+
+# In[76]:
 
 
 Y_pred=regressor.predict(X_test)
 
 
-# In[573]:
+# In[77]:
 
 
-Y_pred
+# Y_pred
 
 
-# In[574]:
+# In[78]:
 
 
 Y_test
 
 
-# In[575]:
+# In[79]:
 
 
 Y_test.to_numpy()
@@ -304,30 +357,26 @@ Y_test.to_numpy()
 
 
 
-# In[ ]:
+# In[80]:
 
 
+# model.score(X_test,Y_test)
 
 
-
-# In[577]:
+# In[81]:
 
 
 print(regressor.score(X_test,Y_test))
 
 
-# In[579]:
+# In[82]:
 
 
-print(regressor.predict([[1,1,1,1,95]]))
-
-
-
-
-# In[ ]:
-
+regressor.predict([[0,1,1,1,60]])
 
 
 pickle.dump(regressor,open('model.pkl','wb'))
 
-model=pickle.load(open('model.pkl','rb'))
+
+
+
