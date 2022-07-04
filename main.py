@@ -187,7 +187,7 @@ Y
 
 
 Data.columns = [each.split()[0] + "_" + each.split()[1] if (len(each.split()) > 1) else each for each in Data.columns ]
-print(Data.columns)
+Data.columns
 
 
 # In[59]:
@@ -366,7 +366,7 @@ Y_test.to_numpy()
 # In[81]:
 
 
-print(regressor.score(X_test,Y_test))
+regressor.score(X_test,Y_test)
 
 
 # In[82]:
@@ -376,6 +376,9 @@ regressor.predict([[0,1,1,1,60]])
 
 
 pickle.dump(regressor,open('model.pkl','wb'))
+
+
+print("Le fichier model.pkl est sauvegardé dans le dossier courant")
 
 
 
